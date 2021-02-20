@@ -2,6 +2,7 @@
 
 import discord
 
+import gigdb
 from settings import bot_token
 
 client = discord.Client(intents=discord.Intents.all())
@@ -15,6 +16,11 @@ async def on_guild_channel_update(before, after):
 
 @client.event
 async def on_voice_state_update(member, before, after):
+    if before.mute and not after.mute:
+        gigdb.delete_mute_member(member.guild.id, member.id)
+    if after.mute:
+        gigdb.add_mute_member(member.guild.id, member.id, member.name)
+
     if before.channel == after.channel:
         return
 

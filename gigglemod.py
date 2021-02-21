@@ -5,7 +5,10 @@ import discord
 import gigdb
 from settings import bot_token
 
-client = discord.Client(intents=discord.Intents.all())
+intents = discord.Intents.none()
+intents.guilds = True
+intents.voice_states = True
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_guild_channel_update(before, after):

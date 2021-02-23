@@ -36,3 +36,6 @@ def delete_mute_member(guild_id, member_id):
 
 def get_all(table):
     return db_execute_sql(f"SELECT * FROM {table}", True)
+
+def save_guild(id, mod_log_channel_id):
+    db_execute_sql("INSERT INTO guilds VALUES ( %s, %s ) ON DUPLICATE KEY UPDATE mod_log_channel_id = %s", False, id=id, mod_log_channel_id=mod_log_channel_id, mod_log_channel_id_2=mod_log_channel_id)
